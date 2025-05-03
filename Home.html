@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PharmaPlus</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.svgbackgrounds.com/wp-content/uploads/2021/05/subtle-waves.svg') repeat;
+      opacity: 0.05;
+      z-index: -1;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 51, 102, 0.95);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      color: white;
+      margin: 0;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      transition: background 0.3s;
+    }
+
+    .navbar a:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
+    }
+
+    .hero {
+      height: 100vh;
+      background: url('pharma.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-overlay {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 40px;
+      border-radius: 20px;
+      color: white;
+      max-width: 750px;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .hero-content h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+    }
+
+    .hero-btn {
+      background: #FFD700;
+      color: black;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .hero-btn:hover {
+      background: #e6c200;
+    }
+
+    .container {
+      padding: 60px 20px 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .brand-container, .locations-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .brand-box, .location-box {
+      width: 200px;
+      height: 200px;
+      perspective: 1000px;
+      cursor: pointer;
+      animation: fadeInUp 1s ease;
+    }
+
+    .brand-inner, .location-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+
+    .brand-box:hover .brand-inner, .location-box:hover .location-inner {
+      transform: rotateY(180deg);
+    }
+
+    .brand-front, .brand-back,
+    .location-front, .location-back {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      background: white;
+      font-weight: bold;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .brand-back, .location-back {
+      transform: rotateY(180deg);
+      background: #f1f1f1;
+    }
+
+    .service-box {
+      padding: 15px;
+      margin: 10px auto;
+      background: white;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      text-align: center;
+      border-radius: 10px;
+      width: 300px;
+      transition: background-color 0.3s ease, transform 0.3s;
+    }
+
+    .service-box:hover {
+      transform: scale(1.03);
+    }
+
+    .hidden-content {
+      display: none;
+      padding: 10px;
+      background: #f1f1f1;
+      margin: 10px auto;
+      width: 300px;
+      border-radius: 5px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form button {
+      background: #2d7dd2;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    form button:hover {
+      background: #1a5c99;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #FFD700;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <h1>PharmaPlus</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#brands">Products</a>
+      <a href="#services">Services</a>
+      <a href="#locations">Locations</a>
+      <a href="#contact">Contact</a>
+      <a href="login.html" class="w3-button w3-yellow">Login / Signup</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <h2>Welcome to Our Pharmacy</h2>
+        <p>Your One-Stop Shop for all Your Health and Wellness Needs. Explore our wide range of high-quality medicines, vitamins, and more.</p>
+        <a href="#brands" class="hero-btn">Shop Now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section id="about" class="container">
+    <h2>About Our Pharmacy</h2>
+    <p style="max-width: 700px; margin: 0 auto; text-align: center;">
+      We partner with leading pharmaceutical manufacturers to bring you the best in health.
+      At our pharmacy, we believe in empowering you to take an active role in your wellness journey.
+    </p>
+  </section>
+
+  <!-- Brands Section -->
+  <div id="brands" class="container">
+    <h2>Explore Our Products</h2>
+    <p style="text-align: center; max-width: 650px; margin: 0 auto;">
+      From prescription medications to over-the-counter remedies, we bring you trusted brands and quality care.
+    </p>
+    <div class="brand-container">
+      <div class="brand-box"><div class="brand-inner"><div class="brand-front">GSK</div><div class="brand-back"><img src="gsk.png" alt="GSK" width="100%" height="100%"></div></div></div>
+      <div class="brand-box"><div class="brand-inner"><div class="brand-front">Johnson & Johnson</div><div class="brand-back"><img src="johnson.png" alt="Johnson & Johnson" width="100%" height="100%"></div></div></div>
+      <div class="brand-box"><div class="brand-inner"><div class="brand-front">Novartis</div><div class="brand-back"><img src="novartis.png" alt="Novartis" width="100%" height="100%"></div></div></div>
+      <div class="brand-box"><div class="brand-inner"><div class="brand-front">Pfizer</div><div class="brand-back"><img src="pfizer.png" alt="Pfizer" width="100%" height="100%"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Services Section -->
+  <div id="services" class="container w3-light-grey w3-padding">
+    <h2>Our Services</h2>
+    <p style="text-align: center; max-width: 600px; margin: 0 auto;">
+      Discover our comprehensive offerings — from prescriptions and wellness to personalized consultations.
+    </p>
+    <div class="service-box" id="service1">Prescription Medicines</div>
+    <div class="hidden-content" id="content1">We offer a wide range of prescription medicines for all your healthcare needs.</div>
+    <div class="service-box" id="service2">Over-the-Counter Drugs</div>
+    <div class="hidden-content" id="content2">We provide OTC medicines for common ailments like cold, fever, and pain relief.</div>
+    <div class="service-box" id="service3">Health Consultations</div>
+    <div class="hidden-content" id="content3">Our experts offer personalized health consultations for better well-being.</div>
+    <div class="service-box" id="service4">Vaccinations</div>
+    <div class="hidden-content" id="content4">We offer vaccinations for flu, COVID-19, and other common diseases.</div>
+  </div>
+
+  <!-- Locations Section -->
+  <div id="locations" class="container">
+    <h2>Our Locations</h2>
+    <div class="locations-container">
+      <div class="location-box"><div class="location-inner"><div class="location-front">New York, NY</div><div class="location-back">123 Main St, NY</div></div></div>
+      <div class="location-box"><div class="location-inner"><div class="location-front">Los Angeles, CA</div><div class="location-back">456 Sunset Blvd, CA</div></div></div>
+      <div class="location-box"><div class="location-inner"><div class="location-front">Chicago, IL</div><div class="location-back">789 Lakeshore Dr, IL</div></div></div>
+      <div class="location-box"><div class="location-inner"><div class="location-front">Houston, TX</div><div class="location-back">321 Space Center St, TX</div></div></div>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <div id="contact" class="container w3-light-grey w3-padding">
+    <h2>Connect With Us</h2>
+    <p style="text-align: center; max-width: 600px; margin: 0 auto;">
+      Have questions? Reach out to our team. We’re here to help you with any queries or medication needs.
+    </p>
+    <form>
+      <input type="text" placeholder="Your Name" />
+      <input type="email" placeholder="Your Email" />
+      <textarea placeholder="Your Message" rows="5"></textarea>
+      <button>Send Message</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Quick Links:
+      <a href="#about">About</a> |
+      <a href="#services">Services</a> |
+      <a href="#brands">Products</a> |
+      <a href="#contact">Contact</a>
+    </p>
+    <p>Follow Us:
+      <a href="#">Facebook</a> •
+      <a href="#">Instagram</a> •
+      <a href="#">Twitter</a> •
+      <a href="#">LinkedIn</a>
+    </p>
+    <p>&copy; 2025 Medikart, Inc. All rights reserved.</p>
+  </footer>
+
+  <!-- jQuery Script -->
+  <script>
+    $(document).ready(function(){
+      $("#service1").hover(function(){ $(this).css("background-color", "#FFD700"); }, function(){ $(this).css("background-color", "white"); });
+      $("#service2").hover(function(){ $(this).css("background-color", "#FF4500"); }, function(){ $(this).css("background-color", "white"); });
+      $("#service3").hover(function(){ $(this).css("background-color", "#32CD32"); }, function(){ $(this).css("background-color", "white"); });
+      $("#service4").hover(function(){ $(this).css("background-color", "#1E90FF"); }, function(){ $(this).css("background-color", "white"); });
+
+      $(".service-box").click(function(){
+        let id = $(this).attr("id").replace("service", "content");
+        $("#" + id).fadeToggle("slow");
+        $(this).css("background-color", "#8A2BE2");
+      });
+    });
+  </script>
+
+</body>
+</html>
